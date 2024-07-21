@@ -1,16 +1,9 @@
 # To-Do
 
--- Show more show less haline gelmeli. O buton her halde orada olmali. Sadece ilk 5 renk gosterilmeli. O 5 renk ortalanmali. Responsive olmali.
 - Code readibilty duzeltilmeli
-- Revisit error handling cases. Explain this well in the readme.
-
-acaba bar 5li icrementler halinde olsa nasil olurdu?
-- debouncing ux/i gelistirecek
-
 *** Note: I coded this site for desktop use cases primarily in mind. This would've changed how things would be used otherwise.
 
 *** For more sophisticated builds, we can consider using IndexedDB style DB to improve caching. Cuz it'll be async etc.
-
 
 Render only transition colors:
 The current implementation in the ColorSwatchGrid component already does this. It only renders the color swatches for the transition points where the color name changes. This is an efficient approach that gives users a good overview of the color spectrum without overwhelming them.

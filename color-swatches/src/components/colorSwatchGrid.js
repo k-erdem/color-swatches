@@ -6,6 +6,8 @@ import ColorSwatch from './colorSwatch'
 import loadingGif from '../assets/loading.gif';
 import { debounce } from 'lodash';
 
+const MIN_LOADING_TIME = 750;
+
 const ColorSwatchGrid = () => {
   const [saturation, setSaturation] = useState(50);
   const [lightness, setLightness] = useState(50);
@@ -19,9 +21,14 @@ const ColorSwatchGrid = () => {
   const fetchInitialColors = async (s, l) => {
     setLoading(true);
     setError(null);
+    const startTime = Date.now();
     try {
       const colors = await Promise.all([0, 72, 144, 216, 288].map(h => fetchColorData(h, s, l)));
       setInitialColors(colors.map((color, index) => ({ hue: index * 72, color })));
+      const elapsedTime = Date.now() - startTime;
+      if (elapsedTime < MIN_LOADING_TIME) {
+        await new Promise(resolve => setTimeout(resolve, MIN_LOADING_TIME - elapsedTime));
+      }
     } catch (err) {
       console.error('Error fetching initial colors:', err);
       setError('Failed to fetch initial colors. Please try again.');
@@ -45,7 +52,6 @@ const ColorSwatchGrid = () => {
   const debouncedFetchColors = useCallback(
     debounce((s, l) => {
       fetchInitialColors(s, l);
-      fetchAllColors(s, l);
     }, 500),
     []
   );
@@ -124,7 +130,7 @@ const ColorSwatchGrid = () => {
       {loading && (
         <div className="loading-indicator">
           <img src={loadingGif} alt="Loading..." className="loading-gif" />
-          <p className={styles.message}>Loading initial color swatches...</p>
+          <p className={styles.message}>Loading color swatches...</p>
         </div>
       )}
       
