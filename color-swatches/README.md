@@ -1,5 +1,7 @@
 # To-Do
 
+-- Show more show less haline gelmeli. O buton her halde orada olmali. Sadece ilk 5 renk gosterilmeli. O 5 renk ortalanmali. Responsive olmali.
+
 - Code readibilty duzeltilmeli
 - Virtualization
 - Explain error handling cases.
@@ -13,6 +15,8 @@
 *** Is there a way to get all the named colors without making 360 calls for each S,L pair? -- getColorforHue bunu yapiyor.
 *** Bir implementation videosu koyalim
 *** Bir de diyagram koyalim.
+
+*** For more sophisticated builds, we can consider using IndexedDB style DB to improve caching. Cuz it'll be async etc.
 
 
 Render only transition colors:
