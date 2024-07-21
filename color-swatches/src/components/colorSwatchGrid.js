@@ -1,61 +1,82 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { fetchColorData } from '../api/colorApi';
 import { optimizedColorFetching, clearColorCache } from '../api/colorUtils';
 import styles from './ColorSwatchGrid.module.css';
 import ColorSwatch from './colorSwatch'
 import loadingGif from '../assets/loading.gif';
 import { debounce } from 'lodash';
 
-
 const ColorSwatchGrid = () => {
   const [saturation, setSaturation] = useState(50);
   const [lightness, setLightness] = useState(50);
-  const [colorTransitions, setColorTransitions] = useState([]);
+  const [initialColors, setInitialColors] = useState([]);
+  const [allColors, setAllColors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState(null);
+  const [showAllColors, setShowAllColors] = useState(false);
 
-  const fetchColors = async (s, l) => {
-    console.log(`Fetching colors for S=${s}, L=${l}`);
+  const fetchInitialColors = async (s, l) => {
     setLoading(true);
     setError(null);
     try {
-      const transitions = await optimizedColorFetching(s, l);
-      console.log('Received color transitions:', transitions);
-      setColorTransitions(transitions);
+      const colors = await Promise.all([0, 72, 144, 216, 288].map(h => fetchColorData(h, s, l)));
+      setInitialColors(colors.map((color, index) => ({ hue: index * 72, color })));
     } catch (err) {
-      console.error('Error fetching colors:', err);
-      setError('Failed to fetch colors. Please try again.');
+      console.error('Error fetching initial colors:', err);
+      setError('Failed to fetch initial colors. Please try again.');
     } finally {
       setLoading(false);
     }
   };
 
+  const fetchAllColors = async (s, l) => {
+    setLoadingMore(true);
+    try {
+      const transitions = await optimizedColorFetching(s, l);
+      setAllColors(transitions);
+    } catch (err) {
+      console.error('Error fetching all colors:', err);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
   const debouncedFetchColors = useCallback(
-    debounce((s, l) => fetchColors(s, l), 500),
+    debounce((s, l) => {
+      fetchInitialColors(s, l);
+      fetchAllColors(s, l);
+    }, 500),
     []
   );
 
   useEffect(() => {
-    console.log('Component mounted, fetching initial colors');
-    fetchColors(saturation, lightness);
+    fetchInitialColors(saturation, lightness);
+    fetchAllColors(saturation, lightness);
   }, []);
 
   const handleInputChange = (setter) => (event) => {
     const value = Math.min(100, Math.max(0, Number(event.target.value)));
-    console.log(`Input changed. New value: ${value}`);
     setter(value);
+    setLoadingMore(true);
+    setShowAllColors(false);
     debouncedFetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
   };
 
   const handleClearCache = () => {
     clearColorCache();
-    fetchColors(); // Refetch colors immediately after clearing cache
+    fetchInitialColors(saturation, lightness);
+    fetchAllColors(saturation, lightness);
   };
 
-  console.log('Rendering component. ColorTransitions:', colorTransitions);
+  const toggleColorDisplay = () => {
+    setShowAllColors(!showAllColors);
+  };
+
+  const displayedColors = showAllColors ? allColors : initialColors;
 
   return (
     <div className={styles.container}>
-
       <div className={styles.controls}>
         <div className={styles.controlGroup}>
           <label htmlFor="saturation">Saturation: {saturation}%</label>
@@ -94,27 +115,36 @@ const ColorSwatchGrid = () => {
               onChange={handleInputChange(setLightness)}
               className={styles.numberInput}
             />
-            <button className="clear-cache-btn" onClick={handleClearCache}>
-                Clear Color Cache
-            </button>
           </div>
         </div>
+        
+
       </div>
 
       {loading && (
         <div className="loading-indicator">
-            <img src={loadingGif} alt="Loading..." className="loading-gif" />
-            <p className={styles.message}>Loading color swatches...</p>
+          <img src={loadingGif} alt="Loading..." className="loading-gif" />
+          <p className={styles.message}>Loading initial color swatches...</p>
         </div>
       )}
-      {loading }
+      
       {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
       
-      <div className={styles.swatchGrid}>
-
-        {colorTransitions.map((transition) => (
-          <ColorSwatch key={`${transition.hue}-${transition.color.hex.value}`} color={transition.color} loading={loading} />
-        ))}
+      <div className={styles.swatchGridContainer}>
+        <div className={styles.swatchGrid}>
+          {displayedColors.map((transition) => (
+            <ColorSwatch key={`${transition.hue}-${transition.color.hex.value}`} color={transition.color} loading={loading} />
+          ))}
+        </div>
+        
+        {initialColors.length > 0 && allColors.length > initialColors.length && (
+          <button 
+            className={styles.toggleButton} 
+            onClick={toggleColorDisplay}
+          >
+            {showAllColors ? "Show Less" : "Show More"}
+          </button>
+        )}
       </div>
     </div>
   );
