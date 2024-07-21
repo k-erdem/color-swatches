@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { optimizedColorFetching, clearColorCache } from '../api/colorUtils';
 import styles from './ColorSwatchGrid.module.css';
 import ColorSwatch from './colorSwatch'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 import loadingGif from '../assets/loading.gif';
+import { debounce } from 'lodash';
 
 
 const ColorSwatchGrid = () => {
@@ -13,11 +12,6 @@ const ColorSwatchGrid = () => {
   const [colorTransitions, setColorTransitions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showAll, setShowAll] = useState(false);
-  const [buttonText, setButtonText] = useState("See More");
-
-  const INITIAL_DISPLAY_COUNT = 5;
-  const SWATCH_SIZE = 100;
 
   const fetchColors = async (s, l) => {
     console.log(`Fetching colors for S=${s}, L=${l}`);
@@ -35,6 +29,11 @@ const ColorSwatchGrid = () => {
     }
   };
 
+  const debouncedFetchColors = useCallback(
+    debounce((s, l) => fetchColors(s, l), 500),
+    []
+  );
+
   useEffect(() => {
     console.log('Component mounted, fetching initial colors');
     fetchColors(saturation, lightness);
@@ -45,37 +44,12 @@ const ColorSwatchGrid = () => {
     console.log(`Input changed. New value: ${value}`);
     setter(value);
     debouncedFetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
-    setShowAll(false);
-    setButtonText("See More");
   };
 
   const handleClearCache = () => {
     clearColorCache();
     fetchColors(); // Refetch colors immediately after clearing cache
-    setShowAll(false);
-    setButtonText("See More");
   };
-
-  const handleToggleDisplay = () => {
-    setShowAll(!showAll);
-    setButtonText(showAll ? "See More" : "Show Less");
-  };
-
-  const Cell = ({ columnIndex, rowIndex, style }) => {
-    const index = rowIndex * columnsCount + columnIndex;
-    if (index >= displayCount) return null;
-    const color = colorTransitions[index]?.color;
-    
-    return (
-      <div style={style}>
-        <ColorSwatch color={color} loading={loading} />
-      </div>
-    );
-  };
-
-  const columnsCount = Math.floor(window.innerWidth / SWATCH_SIZE);
-  const displayCount = showAll ? colorTransitions.length : Math.min(INITIAL_DISPLAY_COUNT, colorTransitions.length);
-  const rowsCount = Math.ceil(displayCount / columnsCount);
 
   console.log('Rendering component. ColorTransitions:', colorTransitions);
 
@@ -133,29 +107,15 @@ const ColorSwatchGrid = () => {
             <p className={styles.message}>Loading color swatches...</p>
         </div>
       )}
-      
+      {loading }
       {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
+      
+      <div className={styles.swatchGrid}>
 
-      <Grid
-        className={styles.swatchGrid}
-        columnCount={columnsCount}
-        columnWidth={SWATCH_SIZE}
-        height={Math.min(rowsCount * SWATCH_SIZE, window.innerHeight * 0.7)} // Limit height to 70% of viewport
-        rowCount={rowsCount}
-        rowHeight={SWATCH_SIZE}
-        width={window.innerWidth - 40} // Subtract padding
-        itemData={colorTransitions}
-      >
-        {Cell}
-      </Grid>
-
-      {colorTransitions.length > INITIAL_DISPLAY_COUNT && (
-        <button className={styles.toggleButton} onClick={handleToggleDisplay}>
-          {buttonText}
-        </button>
-      )}
-
-
+        {colorTransitions.map((transition) => (
+          <ColorSwatch key={`${transition.hue}-${transition.color.hex.value}`} color={transition.color} loading={loading} />
+        ))}
+      </div>
     </div>
   );
 };
