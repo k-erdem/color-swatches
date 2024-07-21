@@ -1,15 +1,18 @@
 # To-Do
 
-
--- Belki onclick degil, 1 sn sonra secilen renkler gonderilmeli sisteme vs.
 - Code readibilty duzeltilmeli
 - Virtualization
-- Revisit error handling cases. Explain this well in the readme.
-
-acaba bar 5li icrementler halinde olsa nasil olurdu?
-- debouncing ux/i gelistirecek
+- Explain error handling cases.
+-- Gerekli packagelar yazilacak calistirmak icin. Hepsini tek dosyada indirip yuklemenin nasil oldugu anlatilacak.
 
 *** Note: I coded this site for desktop use cases primarily in mind. This would've changed how things would be used otherwise.
+*** Debouncing tamamlandi
+*** Binary Search Tamamlandi
+*** UX loading screen ile gelistirildi.
+*** Program becomes faster the more you use it. We use caching. Debouncing reduces unnecessary reloads.
+*** Is there a way to get all the named colors without making 360 calls for each S,L pair? -- getColorforHue bunu yapiyor.
+*** Bir implementation videosu koyalim
+*** Bir de diyagram koyalim.
 
 
 Render only transition colors:
