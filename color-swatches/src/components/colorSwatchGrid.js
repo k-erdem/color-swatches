@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, useCallback } from 'react';
-import { FixedSizeGrid as Grid } from 'react-window';
-=======
 import React, { useState, useEffect } from 'react';
->>>>>>> parent of a28742a (Debouncing added)
 import { optimizedColorFetching, clearColorCache } from '../api/colorUtils';
 import styles from './ColorSwatchGrid.module.css';
 import ColorSwatch from './colorSwatch'
@@ -49,13 +44,9 @@ const ColorSwatchGrid = () => {
     const value = Math.min(100, Math.max(0, Number(event.target.value)));
     console.log(`Input changed. New value: ${value}`);
     setter(value);
-<<<<<<< HEAD
     debouncedFetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
     setShowAll(false);
     setButtonText("See More");
-=======
-    fetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
->>>>>>> parent of a28742a (Debouncing added)
   };
 
   const handleClearCache = () => {

@@ -1,12 +1,6 @@
 # To-Do
 
-<<<<<<< HEAD
 -- Show more show less haline gelmeli. O buton her halde orada olmali. Sadece ilk 5 renk gosterilmeli. O 5 renk ortalanmali. Responsive olmali.
-
-=======
-
--- Belki onclick degil, 1 sn sonra secilen renkler gonderilmeli sisteme vs.
->>>>>>> parent of a28742a (Debouncing added)
 - Code readibilty duzeltilmeli
 - Virtualization
 - Revisit error handling cases. Explain this well in the readme.
