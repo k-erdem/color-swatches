@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { optimizedColorFetching, clearColorCache } from '../api/colorUtils';
 import styles from './ColorSwatchGrid.module.css';
+import ColorSwatch from './colorSwatch'
 
-const ColorSwatch = ({ color }) => (
-  <div className={styles.colorSwatch} style={{ backgroundColor: color.hex.value }}>
-    <p className={styles.swatchName}>{color.name.value}</p>
-    <p className={styles.swatchRgb}>{color.rgb.value}</p>
-  </div>
-);
 
 const ColorSwatchGrid = () => {
   const [saturation, setSaturation] = useState(50);

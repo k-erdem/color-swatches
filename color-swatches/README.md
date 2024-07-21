@@ -1,11 +1,16 @@
 # To-Do
 
-- I have a problem with caching. 
-** Belki de cache, program her kapatildiginda ya da refreshlendiginde yeniden yaratilmali.
-*** Peki neden sorun olusturuyor? Cunku farkli renkleri cacheliyor. 
-- I also have a problem with displaying the correct things.
+- Goruntuler ekrana gec geliyor. Bir yukleniyor yazisi olmali isler bitene kadar. ya da swatchlar her sey bitince gosterilmeli.
+-- Belki onclick degil, 1 sn sonra secilen renkler gonderilmeli sisteme vs.
+- Code readibilty duzeltilmeli
 - Virtualization
 - Revisit error handling cases. Explain this well in the readme.
+
+acaba bar 5li icrementler halinde olsa nasil olurdu?
+
+
+Render only transition colors:
+The current implementation in the ColorSwatchGrid component already does this. It only renders the color swatches for the transition points where the color name changes. This is an efficient approach that gives users a good overview of the color spectrum without overwhelming them.
 
 
 # Getting Started with Create React App
