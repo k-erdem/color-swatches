@@ -69,12 +69,6 @@ const ColorSwatchGrid = () => {
     debouncedFetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
   };
 
-  const handleClearCache = () => {
-    clearColorCache();
-    fetchInitialColors(saturation, lightness);
-    fetchAllColors(saturation, lightness);
-  };
-
   const toggleColorDisplay = () => {
     setShowAllColors(!showAllColors);
   };
