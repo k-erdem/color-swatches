@@ -44,16 +44,11 @@ const ColorSwatchGrid = () => {
     fetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
   };
 
-  const handleClearCache = () => {
-    clearColorCache();
-    fetchColors(saturation, lightness);
-  };
-
   console.log('Rendering component. ColorTransitions:', colorTransitions);
 
   return (
     <div className={styles.container}>
-              
+
       <div className={styles.controls}>
         <div className={styles.controlGroup}>
           <label htmlFor="saturation">Saturation: {saturation}%</label>
@@ -95,10 +90,6 @@ const ColorSwatchGrid = () => {
           </div>
         </div>
       </div>
-
-      <button onClick={handleClearCache} className={styles.clearCacheButton}>
-        Clear Cache and Reload
-      </button>
 
       {loading && <p className={styles.message}>Loading color swatches...</p>}
       {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}

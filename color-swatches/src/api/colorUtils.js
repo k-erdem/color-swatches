@@ -1,35 +1,10 @@
-const API_BASE_URL = 'https://www.thecolorapi.com/id';
+import { fetchColorData } from '../api/colorApi';
 
 const CACHE_KEY = (s, l) => `color_cache_${s}_${l}`;
 
-async function fetchColorData(h, s, l) {
-  console.log(`Fetching color data for HSL(${h}, ${s}%, ${l}%)`);
-  try {
-    const response = await fetch(`${API_BASE_URL}?hsl=${h},${s}%,${l}%&format=json`);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    console.log(`Received data for HSL(${h}, ${s}%, ${l}%):`, data);
-    return data;
-  } catch (error) {
-    console.error('Error fetching color data:', error);
-    throw new Error('Failed to fetch color data from the API');
-  }
-}
-
-export function clearColorCache() {
-  console.log('Clearing color cache from localStorage');
-  Object.keys(localStorage).forEach(key => {
-    if (key.startsWith('color_cache_')) {
-      localStorage.removeItem(key);
-    }
-  });
-  console.log('Color cache cleared');
-}
-
 export async function optimizedColorFetching(s, l) {
   console.log(`Starting optimizedColorFetching for S=${s}, L=${l}`);
+  let apiCallAmount = 0;
   
   const cachedData = localStorage.getItem(CACHE_KEY(s, l));
   if (cachedData) {
@@ -40,29 +15,46 @@ export async function optimizedColorFetching(s, l) {
   console.log('No cached data found, fetching from API...');
 
   const transitions = [];
-  const seenColorNames = new Set();
   let start = 0;
   let end = 359;
   
-  while (start <= end) {
-    const color = await fetchColorData(start, s, l);
-    if (!seenColorNames.has(color.name.value)) {
-      console.log(`New color found: ${color.name.value} at hue ${start}`);
-      seenColorNames.add(color.name.value);
-      transitions.push({ hue: start, color });
+  async function findTransition(left, right, prevColor) {
+    if (left > right) return right;
+    
+    const mid = Math.floor((left + right) / 2);
+    const color = await fetchColorData(mid, s, l);
+    
+    if (color.name.value !== prevColor.name.value) {
+      return findTransition(left, mid - 1, prevColor);
     } else {
-      console.log(`Duplicate color name found: ${color.name.value} at hue ${start}`);
+      return findTransition(mid + 1, right, color);
     }
-    start++;
   }
 
-  console.log(`Fetching complete. Found ${transitions.length} unique colors.`);
-  console.log('Color transitions:', transitions);
+  while (start <= end) {
+    const color = await fetchColorData(start, s, l);
+    apiCallAmount++;
+    transitions.push({ hue: start, color });
+    
+    const nextTransition = await findTransition(start + 1, end, color);
+    start = nextTransition + 1;
+  }
 
+  console.log(`Fetching complete. Found ${transitions.length} color transitions.`);
+  console.log("Api Call amount " + apiCallAmount)
   localStorage.setItem(CACHE_KEY(s, l), JSON.stringify(transitions));
-  console.log('Cached the new color data');
 
   return transitions;
+}
+
+export function clearColorCache() {
+  console.log('Clearing color cache from localStorage');
+  Object.keys(localStorage).forEach(key => {
+    if (key.startsWith('color_cache_')) {
+      localStorage.removeItem(key);
+    }
+  });
+  console.log('Color cache cleared');
 }
 
 export function getColorForHue(transitions, hue) {

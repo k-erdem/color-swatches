@@ -1,3 +1,13 @@
+# To-Do
+
+- I have a problem with caching. 
+** Belki de cache, program her kapatildiginda ya da refreshlendiginde yeniden yaratilmali.
+*** Peki neden sorun olusturuyor? Cunku farkli renkleri cacheliyor. 
+- I also have a problem with displaying the correct things.
+- Virtualization
+- Revisit error handling cases. Explain this well in the readme.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

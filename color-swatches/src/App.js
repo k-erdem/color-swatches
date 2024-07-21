@@ -1,6 +1,6 @@
 import './App.css';
 import ColorSwatchGrid from './components/colorSwatchGrid';
-
+import NewSwatchGrid from './components/newSwatchGrid';
 
 function App() {
   return (
