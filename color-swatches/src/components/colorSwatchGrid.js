@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { optimizedColorFetching, clearColorCache } from '../api/colorUtils';
 import styles from './ColorSwatchGrid.module.css';
 import ColorSwatch from './colorSwatch'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
+import loadingGif from '../assets/loading.gif';
 
 
 const ColorSwatchGrid = () => {
@@ -37,6 +40,11 @@ const ColorSwatchGrid = () => {
     console.log(`Input changed. New value: ${value}`);
     setter(value);
     fetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
+  };
+
+  const handleClearCache = () => {
+    clearColorCache();
+    fetchColors(); // Refetch colors immediately after clearing cache
   };
 
   console.log('Rendering component. ColorTransitions:', colorTransitions);
@@ -82,16 +90,26 @@ const ColorSwatchGrid = () => {
               onChange={handleInputChange(setLightness)}
               className={styles.numberInput}
             />
+            <button className="clear-cache-btn" onClick={handleClearCache}>
+                Clear Color Cache
+            </button>
           </div>
         </div>
       </div>
 
-      {loading && <p className={styles.message}>Loading color swatches...</p>}
+      {loading && (
+        <div className="loading-indicator">
+            <img src={loadingGif} alt="Loading..." className="loading-gif" />
+            <p className={styles.message}>Loading color swatches...</p>
+        </div>
+      )}
+      {loading }
       {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
       
       <div className={styles.swatchGrid}>
+
         {colorTransitions.map((transition) => (
-          <ColorSwatch key={`${transition.hue}-${transition.color.hex.value}`} color={transition.color} />
+          <ColorSwatch key={`${transition.hue}-${transition.color.hex.value}`} color={transition.color} loading={loading} />
         ))}
       </div>
     </div>
