@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { optimizedColorFetching, getColorForHue } from '../api/colorUtils';
+import React, { useState, useEffect } from 'react';
+import { optimizedColorFetching, clearColorCache } from '../api/colorUtils';
+import styles from './ColorSwatchGrid.module.css';
 
-const ColorSwatch = React.memo(({ color }) => (
-  <div className="color-swatch" style={{ backgroundColor: color?.hex?.value || '#CCCCCC' }}>
-    <p>{color?.name?.value || 'Loading...'}</p>
-    <p>{color?.rgb?.value || 'RGB: N/A'}</p>
+const ColorSwatch = ({ color }) => (
+  <div className={styles.colorSwatch} style={{ backgroundColor: color.hex.value }}>
+    <p className={styles.swatchName}>{color.name.value}</p>
+    <p className={styles.swatchRgb}>{color.rgb.value}</p>
   </div>
-));
+);
 
 const ColorSwatchGrid = () => {
   const [saturation, setSaturation] = useState(50);
@@ -15,80 +16,97 @@ const ColorSwatchGrid = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchColors = useCallback(async () => {
+  const fetchColors = async (s, l) => {
+    console.log(`Fetching colors for S=${s}, L=${l}`);
     setLoading(true);
     setError(null);
     try {
-      const transitions = await optimizedColorFetching(saturation, lightness);
+      const transitions = await optimizedColorFetching(s, l);
+      console.log('Received color transitions:', transitions);
       setColorTransitions(transitions);
     } catch (err) {
+      console.error('Error fetching colors:', err);
       setError('Failed to fetch colors. Please try again.');
-      console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [saturation, lightness]);
+  };
 
   useEffect(() => {
-    fetchColors();
-  }, [fetchColors]);
+    console.log('Component mounted, fetching initial colors');
+    fetchColors(saturation, lightness);
+  }, []);
 
-  const handleSaturationChange = (event) => {
-    setSaturation(Number(event.target.value));
+  const handleInputChange = (setter) => (event) => {
+    const value = Math.min(100, Math.max(0, Number(event.target.value)));
+    console.log(`Input changed. New value: ${value}`);
+    setter(value);
+    fetchColors(setter === setSaturation ? value : saturation, setter === setLightness ? value : lightness);
   };
 
-  const handleLightnessChange = (event) => {
-    setLightness(Number(event.target.value));
+  const handleClearCache = () => {
+    clearColorCache();
+    fetchColors(saturation, lightness);
   };
 
-  const renderColorSwatches = () => {
-    if (loading || colorTransitions.length === 0) {
-      return Array(36).fill(null).map((_, index) => (
-        <ColorSwatch key={index} color={null} />
-      ));
-    }
-
-    const swatches = [];
-    for (let hue = 0; hue < 360; hue += 10) {  // Render every 10th hue for performance
-      const color = getColorForHue(colorTransitions, hue);
-      swatches.push(<ColorSwatch key={hue} color={color} />);
-    }
-    return swatches;
-  };
+  console.log('Rendering component. ColorTransitions:', colorTransitions);
 
   return (
-    <div className="color-swatch-grid">
-      <div className="controls">
-        <label>
-          Saturation:
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={saturation}
-            onChange={handleSaturationChange}
-          />
-          {saturation}%
-        </label>
-        <label>
-          Lightness:
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={lightness}
-            onChange={handleLightnessChange}
-          />
-          {lightness}%
-        </label>
-        <button onClick={fetchColors} disabled={loading}>
-          Update Colors
-        </button>
+    <div className={styles.container}>
+              
+      <div className={styles.controls}>
+        <div className={styles.controlGroup}>
+          <label htmlFor="saturation">Saturation: {saturation}%</label>
+          <div className={styles.inputGroup}>
+            <input
+              type="range"
+              id="saturation"
+              min="0"
+              max="100"
+              value={saturation}
+              onChange={handleInputChange(setSaturation)}
+            />
+            <input
+              type="number"
+              value={saturation}
+              onChange={handleInputChange(setSaturation)}
+              className={styles.numberInput}
+            />
+          </div>
+        </div>
+        
+        <div className={styles.controlGroup}>
+          <label htmlFor="lightness">Lightness: {lightness}%</label>
+          <div className={styles.inputGroup}>
+            <input
+              type="range"
+              id="lightness"
+              min="0"
+              max="100"
+              value={lightness}
+              onChange={handleInputChange(setLightness)}
+            />
+            <input
+              type="number"
+              value={lightness}
+              onChange={handleInputChange(setLightness)}
+              className={styles.numberInput}
+            />
+          </div>
+        </div>
       </div>
-      {loading && <p>Loading...</p>}
-      {error && <p className="error">{error}</p>}
-      <div className="swatch-container">
-        {renderColorSwatches()}
+
+      <button onClick={handleClearCache} className={styles.clearCacheButton}>
+        Clear Cache and Reload
+      </button>
+
+      {loading && <p className={styles.message}>Loading color swatches...</p>}
+      {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
+      
+      <div className={styles.swatchGrid}>
+        {colorTransitions.map((transition) => (
+          <ColorSwatch key={`${transition.hue}-${transition.color.hex.value}`} color={transition.color} />
+        ))}
       </div>
     </div>
   );

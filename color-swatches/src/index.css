@@ -11,3 +11,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.color-swatch-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.swatch-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.color-swatch {
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}

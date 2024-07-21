@@ -1,12 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
 import ColorSwatchGrid from './components/colorSwatchGrid';
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>Color Swatch</p>
+        <h1>Color Swatch</h1>
         <ColorSwatchGrid></ColorSwatchGrid>
       </header>
     </div>
