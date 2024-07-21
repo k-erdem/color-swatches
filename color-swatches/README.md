@@ -2,7 +2,6 @@
 
 -- Show more show less haline gelmeli. O buton her halde orada olmali. Sadece ilk 5 renk gosterilmeli. O 5 renk ortalanmali. Responsive olmali.
 - Code readibilty duzeltilmeli
-- Virtualization
 - Revisit error handling cases. Explain this well in the readme.
 
 acaba bar 5li icrementler halinde olsa nasil olurdu?
