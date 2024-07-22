@@ -9,29 +9,29 @@ An example project that uses the [color api](https://www.thecolorapi.com/) to bu
 
 To run this project locally, follow the steps below.
 
-1. Clone the repository.
+1. **Clone the repository.**
 
     ```
     git clone  https://github.com/k-erdem/color-swatches.git
     ```
 
-2.  Navigate to the folder and then the server directory:
+2.  **Navigate** to the folder and then the server directory:
 
     ```
     cd color-swatches
     cd src
     ```
-3. Install Node.js
+3. **Install** Node.js
 
  Go to the [official Node.js website](https://nodejs.org/) and download the installer.
 
-4. Install dependencies in the project directory. Install the required dependencies by running:
+4. **Install dependencies** in the project directory. Install the required dependencies by running:
     ```
     npm install
     ```
 This command will install all the dependencies listed in the package.json file, including React and other necessary packages.
 
-5. Start the development server
+5. **Start** the development server
 
 Once the dependencies are installed, you can start the development server by running:
     ```
