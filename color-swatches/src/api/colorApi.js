@@ -20,7 +20,6 @@ export async function fetchColorData(h, s, l) {
 
     return response.data;
   } catch (error) {
-    console.error('Error fetching color data:', error);
     throw new Error('Failed to fetch color data from the API');
   }
 }
@@ -35,7 +34,6 @@ export async function fetchMultipleColors(colors) {
     const promises = colors.map(({ h, s, l }) => fetchColorData(h, s, l));
     return await Promise.all(promises);
   } catch (error) {
-    console.error('Error fetching multiple colors:', error);
     throw new Error('Failed to fetch multiple colors from the API');
   }
 }

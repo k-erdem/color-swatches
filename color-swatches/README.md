@@ -1,12 +1,19 @@
 # To-Do
 
 - Code readibilty duzeltilmeli
+- Decouple the methods.
+- Write Comments.
+- Write how to locally run the app.
+
+
 *** Note: I coded this site for desktop use cases primarily in mind. This would've changed how things would be used otherwise.
 
 *** For more sophisticated builds, we can consider using IndexedDB style DB to improve caching. Cuz it'll be async etc.
 
 Render only transition colors:
 The current implementation in the ColorSwatchGrid component already does this. It only renders the color swatches for the transition points where the color name changes. This is an efficient approach that gives users a good overview of the color spectrum without overwhelming them.
+
+Folder Structure. Why did I choose this folder structure?
 
 
 # Getting Started with Create React App
