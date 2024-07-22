@@ -9,24 +9,45 @@ An example project that uses the [color api][https://www.thecolorapi.com/] to bu
 
 1. Clone the repository.
 
-git clone [repository-url]
-cd [project-directory]
+git clone [https://github.com/k-erdem/color-swatches.git]
+
+2. Install Node.js
+
+https://nodejs.org/en/download/package-manager
+
+3. Install dependencies in the project directory. Install the required dependencies by running:
+
+npm install
+
+This command will install all the dependencies listed in the package.json file, including React and other necessary packages.
+
+4. Start the development server
+Once the dependencies are installed, you can start the development server by running:
+
+npm start
+
+This command will start the React development server. The application should open automatically in your default web browser. If it doesn't, you can manually open http://localhost:3000 in your browser.
+
+5. View the application
+
+You should now see the Color Swatch application running in your browser. You can interact with the color controls to see different color swatches.
+
+6. Stop the server
+
+When you're done, you can stop the development server by pressing Ctrl + C in the terminal where the server is running.
+
 
 ## Considerations & Design Choices
-
-## File Structure
-
-## To-Do
-- Write how to locally run the app.
-
-
-**Considerations:**
 
 - How efficiently can the distinct names be determined? Can the number of API calls be reduced?*
 - Do all colors need to be rendered at once?
 - When will the API calls be made?
 - What is the best user experience for selecting S and L values?
 - What sort of feedback will the user receive? How will loading times be handled?
+
+
+
+## File Structure
 
 
 -- Edge case when S or L is 100 or 0.
@@ -42,35 +63,3 @@ Render only transition colors:
 The current implementation in the ColorSwatchGrid component already does this. It only renders the color swatches for the transition points where the color name changes. This is an efficient approach that gives users a good overview of the color spectrum without overwhelming them.
 
 Folder Structure. Why did I choose this folder structure?
-
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
