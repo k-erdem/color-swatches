@@ -1,3 +1,49 @@
+# Color Swatches - Akkio Frontend Technical Assessment
+
+## Overview 
+An example project that uses the [color api][https://www.thecolorapi.com/] to build a grid of Hue, Saturation, Lightness (HSL) color swatches by taking user inputs for Saturation (S) and Lightness (L).
+
+## Demo
+
+## How to Install and Locally Run the Project
+
+1. Clone the repository.
+
+git clone [repository-url]
+cd [project-directory]
+
+## Considerations & Design Choices
+
+## File Structure
+
+## To-Do
+- Write how to locally run the app.
+
+
+**Considerations:**
+
+- How efficiently can the distinct names be determined? Can the number of API calls be reduced?*
+- Do all colors need to be rendered at once?
+- When will the API calls be made?
+- What is the best user experience for selecting S and L values?
+- What sort of feedback will the user receive? How will loading times be handled?
+
+
+-- Edge case when S or L is 100 or 0.
+-- I also maybe need to erase localstorage every time we close the program.
+
+** I used custom hooks to make the code more readable (ie. useColorFetching and useDebounce)
+
+*** Note: I coded this site for desktop use cases primarily in mind. This would've changed how things would be used otherwise.
+
+*** For more sophisticated builds, we can consider using IndexedDB style DB to improve caching. Cuz it'll be async etc.
+
+Render only transition colors:
+The current implementation in the ColorSwatchGrid component already does this. It only renders the color swatches for the transition points where the color name changes. This is an efficient approach that gives users a good overview of the color spectrum without overwhelming them.
+
+Folder Structure. Why did I choose this folder structure?
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -28,43 +74,3 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
