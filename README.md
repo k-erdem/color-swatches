@@ -5,7 +5,7 @@ An example project that uses the [color api](https://www.thecolorapi.com/) to bu
 
 ## Demo
 
-![colorswatchdemo](https://github.com/k-erdem/web-to-do-application/assets/67538883/68aecb8f-6aef-47c5-93c3-b2312e8e6b33)
+![colorswatchdemo](src/assets/ColorSwatchDemo.gif)
 
 ## Getting Started
 
