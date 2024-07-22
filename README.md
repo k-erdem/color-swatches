@@ -34,6 +34,7 @@ This command will install all the dependencies listed in the package.json file, 
 5. **Start** the development server
 
 Once the dependencies are installed, you can start the development server by running:
+
     ```
     npm start
     ```
