@@ -57,34 +57,3 @@ I focused extensively on user experience and technical optimization for the Colo
 API calls were made if S,L values were manipulated. However to ensure fast response, I choose to only render a subset of 5 swatches for immediate feedback. Meanwhile, the rest of the swatches were rendered on the background and made visible only after users clicked the "See More" button. This tiered rendering approach, along with clear loading indicators and error handling, helped ensure a smooth and informative user experience. The core challenge of efficiently determining distinct color names while minimizing API calls was addressed through an innovative binary search algorithm. Binary Search was made possible, since as the assessment specs mention, color names always progress in one direction as the hue changes and can never appear again after the name changes (ie. they're ordered by name). Using Binary Search in optimization, alongside local storage caching, significantly reduced the number of API requests. 
 
 I hope you enjoyed reading about my design choices. I'm looking forward to hearing your feedback! :)
-
-## File Structure
-
-project-root/
-│
-├── src/
-│   ├── api/
-│   │   └── colorApi.js
-│   │
-│   ├── assets/
-│   │   └── loading.gif
-│   │
-│   ├── components/
-│   │   ├── ColorControls.js
-│   │   ├── ColorSwatch.js
-│   │   ├── ColorSwatchGrid.js
-│   │   ├── LoadingIndicator.js
-│   │   └── SkeletonSwatch.js
-│   │
-│   ├── hooks/
-│   │   ├── useColorFetching.js
-│   │   └── useDebounce.js
-│   │
-│   ├── utils/
-│   │   └── colorUtils.js
-│   │
-│   ├── App.css
-│   ├── App.js
-│   └── ColorSwatchGrid.module.css
-│
-└── README.md
