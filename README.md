@@ -5,34 +5,47 @@ An example project that uses the [color api][https://www.thecolorapi.com/] to bu
 
 ## Demo
 
-## How to Install and Locally Run the Project
+## Getting Started
+
+To run this project locally, follow the steps below.
 
 1. Clone the repository.
 
-git clone [https://github.com/k-erdem/color-swatches.git]
+    ```
+    git clone  [https://github.com/k-erdem/color-swatches.git]
+    ```
 
-2. Install Node.js
+2.  Navigate to the server directory:
+
+    ```
+    cd src
+    ```
+    
+3. Install Node.js
 
 https://nodejs.org/en/download/package-manager
 
-3. Install dependencies in the project directory. Install the required dependencies by running:
+4. Install dependencies in the project directory. Install the required dependencies by running:
 
-npm install
+    ```
+    npm install
+    ```
 
 This command will install all the dependencies listed in the package.json file, including React and other necessary packages.
 
-4. Start the development server
+5. Start the development server
+
 Once the dependencies are installed, you can start the development server by running:
-
-npm start
-
+    ```
+    npm start
+    ```
 This command will start the React development server. The application should open automatically in your default web browser. If it doesn't, you can manually open http://localhost:3000 in your browser.
 
-5. View the application
+6. View the application
 
 You should now see the Color Swatch application running in your browser. You can interact with the color controls to see different color swatches.
 
-6. Stop the server
+7. Stop the server
 
 When you're done, you can stop the development server by pressing Ctrl + C in the terminal where the server is running.
 
