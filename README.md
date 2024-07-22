@@ -23,7 +23,7 @@ To run this project locally, follow the steps below.
     ```
 3. Install Node.js
 
- Just go on [official Node.js website](https://nodejs.org/) and download the installer.
+ Go to the [official Node.js website](https://nodejs.org/) and download the installer.
 
 4. Install dependencies in the project directory. Install the required dependencies by running:
     ```
@@ -50,34 +50,13 @@ When you're done, you can stop the development server by pressing Ctrl + C in th
 
 ## Considerations & Design Choices
 
-The design choices in this project were informed by the necessities to optimize the API calls. With possible values of 360 for Hue, 100 for Saturation, and 100 for Lightness, the Color API calls had to be optimized to provide a high performing application with a smooth user experience. 
+I focused extensively on user experience and technical optimization for the Color Swatch assessment. The design is responsive, serving all desktop, tablet, and mobile users. User interaction is intuitive thanks to dual-input controls. Users can type Saturation and Lightness values manually (so they can look up specific outcomes they're curious about), or use the slider to experiment with different range values of S,L variables. To enhance performance and user feedback, the application employs debouncing techniques (which prevents rapid successive API calls during user input), skeleton loading states (for providing feedback to users when swatches are loading), loading indicator in the form of a message and a cute theme-relevant gif to make sure users know what's happening behind their screens and they know to wait as the app loads. I also used debouncing to prevent excessive API calls during rapid user input.
 
-The website is made up of 2 distinct parts. The user input control tools (sliders for Saturation and Lightness) and the Color Swatch grid, displaying all distinct colors for the given S,L values. Users can interact with the website by changing the saturation and lightness values. The best user experience for selecting these values was ensured through giving the users the options to either manually type a value for the variables (so they can look up specific outcomes they're curious about), or use the slider to experiment with different values of S,L variables. Debouncing was used to limit excessive API requests, and to make sure the user gets a fast response without having to see twitching color swatches. A loading indicator in the form of a message text and a cute theme-relevant was used to prompt the users and provide the necessary feedback. 
+API calls were made if S,L values were manipulated. However to ensure fast response, I choose to only render 5 swatches immediately. Meanwhile I chose to render the rest of the swatches on the background and make them only visible to users if they clicked the "See More" button. This significantly increased the reaction time of the code and gave users an input to play around with, which enhances the UX.
 
-Distinct swatch names were determined by 
+The core challenge of efficiently determining distinct color names while minimizing API calls was addressed through an innovative binary search algorithm. Binary Search was made possible, since as the assessment specs mention, color names always progress in one direction as the hue changes and can never appear again after the name changes (ie. they're ordered by name). Using Binary Search in optimization, alongside local storage caching, significantly reduced the number of API requests. The application initially displays a subset of color swatches for immediate feedback, with the option to view all distinct colors on demand. This tiered rendering approach, along with clear loading indicators and error handling, ensures a smooth and informative user experience while managing the computational intensity of processing numerous color combinations. 
 
-Edge cases including but not limited to S=0, L=0, L=100 were tested, and relevant responses were crafted.
-
-- How efficiently can the distinct names be determined? Can the number of API calls be reduced?*
-- Do all colors need to be rendered at once?
-- When will the API calls be made?
-- What is the best user experience for selecting S and L values?
-- What sort of feedback will the user receive? How will loading times be handled?
-
-
+I hope you enjoyed reading about my design choices. I'm looking forward to hearing your feedback! :)
 
 ## File Structure
 
-
--- I also maybe need to erase localstorage every time we close the program.
-
-** I used custom hooks to make the code more readable (ie. useColorFetching and useDebounce)
-
-*** Note: I coded this site for desktop use cases primarily in mind. This would've changed how things would be used otherwise.
-
-*** For more sophisticated builds, we can consider using IndexedDB style DB to improve caching. Cuz it'll be async etc.
-
-Render only transition colors:
-The current implementation in the ColorSwatchGrid component already does this. It only renders the color swatches for the transition points where the color name changes. This is an efficient approach that gives users a good overview of the color spectrum without overwhelming them.
-
-Folder Structure. Why did I choose this folder structure?
