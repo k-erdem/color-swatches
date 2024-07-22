@@ -28,6 +28,7 @@ To run this project locally, follow the steps below.
  Go to the [official Node.js website](https://nodejs.org/) and download the installer.
 
 4. **Install dependencies** in the project directory. Install the required dependencies by running:
+
     ```
     npm install
     ```
