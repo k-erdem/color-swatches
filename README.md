@@ -34,10 +34,12 @@ This command will install all the dependencies listed in the package.json file, 
 5. **Start** the development server
 
 Once the dependencies are installed, you can start the development server by running:
+
     ```
     npm start
     ```
-This command will start the React development server. The application should open automatically in your default web browser. If it doesn't, you can manually open http://localhost:3000 in your browser.
+    
+The application should open automatically in your default web browser. If it doesn't, you can manually open http://localhost:3000 in your browser.
 
 6. View the application
 
