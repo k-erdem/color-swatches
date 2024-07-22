@@ -12,12 +12,13 @@ To run this project locally, follow the steps below.
 1. Clone the repository.
 
     ```
-    git clone  [https://github.com/k-erdem/color-swatches.git]
+    git clone  https://github.com/k-erdem/color-swatches.git
     ```
 
-2.  Navigate to the server directory:
+2.  Navigate to the folder and then the server directory:
 
     ```
+    cd color-swatches
     cd src
     ```
     
