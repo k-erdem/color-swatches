@@ -1,9 +1,33 @@
-# To-Do
+# Color Swatches - Akkio Frontend Technical Assessment
 
-- Code readibilty duzeltilmeli
-- Decouple the methods.
-- Write Comments.
+## Overview 
+An example project that uses the [color api][https://www.thecolorapi.com/] to build a grid of Hue, Saturation, Lightness (HSL) color swatches by taking user inputs for Saturation (S) and Lightness (L).
+
+## Demo
+
+## How to Install and Locally Run the Project
+
+1. Clone the repository.
+
+git clone [repository-url]
+cd [project-directory]
+
+## Considerations & Design Choices
+
+## File Structure
+
+## To-Do
 - Write how to locally run the app.
+
+
+**Considerations:**
+
+- How efficiently can the distinct names be determined? Can the number of API calls be reduced?*
+- Do all colors need to be rendered at once?
+- When will the API calls be made?
+- What is the best user experience for selecting S and L values?
+- What sort of feedback will the user receive? How will loading times be handled?
+
 
 -- Edge case when S or L is 100 or 0.
 -- I also maybe need to erase localstorage every time we close the program.
