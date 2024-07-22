@@ -33,9 +33,9 @@ export const useColorFetching = (initialSaturation, initialLightness) => {
     try {
       let colors;
       if (l === 0) {
-        colors = [{ hex: { value: '#000000' }, name: { value: 'Black' }, rgb: { value: 'rgb(0,0,0)' } }];
+        colors = [{ hex: { value: '#000000' }, name: { value: 'Black' }, rgb: { value: 'rgb(0, 0, 0)' } }];
       } else if (l === 100) {
-        colors = [{ hex: { value: '#FFFFFF' }, name: { value: 'White' }, rgb: { value: 'rgb(255,255,255)' } }];
+        colors = [{ hex: { value: '#FFFFFF' }, name: { value: 'White' }, rgb: { value: 'rgb(255, 255, 255)' } }];
       } else if (s === 0) {
         colors = [await fetchColorData(0, s, l)];
       } else {
