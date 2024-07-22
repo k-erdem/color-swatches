@@ -34,14 +34,12 @@ To run this project locally, follow the steps below.
     ```
 This command will install all the dependencies listed in the package.json file, including React and other necessary packages.
 
-5. **Start** the development server
-
-Once the dependencies are installed, you can start the development server by running:
+5. **Start** the development server. Once the dependencies are installed, you can start the development server by running:
 
     ```
-    cd color-swatches
-    cd src
+    npm start
     ```
+    
 The application should open automatically in your default web browser. If it doesn't, you can manually open http://localhost:3000 in your browser.
 
 6. View the application
