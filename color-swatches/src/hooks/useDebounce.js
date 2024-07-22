@@ -1,3 +1,8 @@
+/* useDeboun is a custom hook that provides debounce functionality for any value.
+   It delays updating the debounced value until after a specified delay.
+   Works to ensure a smoother user experience.
+*/
+
 import { useState, useEffect } from 'react';
 
 export function useDebounce(value, delay) {

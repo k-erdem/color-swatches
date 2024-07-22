@@ -1,3 +1,8 @@
+/* ColorSwatchGrid component manages displaying the group of color swatches.
+   Also manages the display of Saturation and Lightness controls.
+   Handles user interactions and color fetching logic.
+*/
+
 import React, { useState } from 'react';
 import styles from './ColorSwatchGrid.module.css';
 import ColorSwatch from './ColorSwatch';
@@ -7,6 +12,7 @@ import LoadingIndicator from './LoadingIndicator';
 import { useColorFetching } from '../hooks/useColorFetching';
 
 const ColorSwatchGrid = () => {
+  // Custom hook for color fetching logic
   const {
     saturation,
     lightness,
@@ -21,12 +27,14 @@ const ColorSwatchGrid = () => {
 
   const [showAllColors, setShowAllColors] = useState(false);
 
+  // Handles input changes for Saturation and Lightness values
   const handleInputChange = (setter) => (event) => {
     const value = Math.min(100, Math.max(0, Number(event.target.value)));
     setter(value);
     setShowAllColors(false);
   };
 
+  // Toggle between showing initial 5 colors and all possible colors
   const toggleColorDisplay = () => {
     setShowAllColors(!showAllColors);
   };

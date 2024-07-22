@@ -1,3 +1,7 @@
+/* This file contains functions for interacting with the Color API.
+   It provides methods to fetch color data for single and multiple colors.
+*/
+
 import axios from 'axios';
 
 const API_BASE_URL = 'https://www.thecolorapi.com/id';

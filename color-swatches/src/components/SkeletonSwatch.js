@@ -1,3 +1,7 @@
+/* SkeletonSwatch component renders a skeleton (filler) swatch
+   to provide feedback to users while the actual color data is loading.
+*/
+
 import React from 'react';
 import styles from './ColorSwatchGrid.module.css';
 

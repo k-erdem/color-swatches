@@ -5,6 +5,10 @@
 - Write Comments.
 - Write how to locally run the app.
 
+-- Edge case when S or L is 100 or 0.
+-- I also maybe need to erase localstorage every time we close the program.
+
+** I used custom hooks to make the code more readable (ie. useColorFetching and useDebounce)
 
 *** Note: I coded this site for desktop use cases primarily in mind. This would've changed how things would be used otherwise.
 

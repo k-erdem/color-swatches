@@ -1,8 +1,13 @@
+/* ColorControls component renders the controls tools for adjusting Saturation and Lightness values.
+   Includes sliders and number inputs for precise control.
+*/
+
 import React from 'react';
 import styles from './ColorSwatchGrid.module.css';
 
 const ColorControls = ({ saturation, lightness, onSaturationChange, onLightnessChange }) => (
   <div className={styles.controls}>
+    {/* Saturation control */}
     <div className={styles.controlGroup}>
       <label htmlFor="saturation">Saturation: {saturation}%</label>
       <div className={styles.inputGroup}>
@@ -23,6 +28,7 @@ const ColorControls = ({ saturation, lightness, onSaturationChange, onLightnessC
       </div>
     </div>
     
+    {/* Lightness control */}
     <div className={styles.controlGroup}>
       <label htmlFor="lightness">Lightness: {lightness}%</label>
       <div className={styles.inputGroup}>
