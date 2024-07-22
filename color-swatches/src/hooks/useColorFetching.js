@@ -38,11 +38,13 @@ export const useColorFetching = (initialSaturation, initialLightness) => {
 
   const fetchAllColors = useCallback(async (s, l) => {
     setLoadingMore(true);
+    setAllColors([]); // Clear previous colors
     try {
       const transitions = await optimizedColorFetching(s, l);
       setAllColors(transitions);
     } catch (err) {
       console.error('Error fetching all colors:', err);
+      setError('Failed to fetch all colors. Please try again.');
     } finally {
       setLoadingMore(false);
     }

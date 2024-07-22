@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './ColorSwatchGrid.module.css';
 import ColorSwatch from './ColorSwatch';
+import SkeletonSwatch from './SkeletonSwatch';
 import ColorControls from './ColorControls';
 import LoadingIndicator from './LoadingIndicator';
 import { useColorFetching } from '../hooks/useColorFetching';
@@ -14,6 +15,7 @@ const ColorSwatchGrid = () => {
     initialColors,
     allColors,
     loading,
+    loadingMore,
     error,
   } = useColorFetching(50, 50);
 
@@ -30,6 +32,7 @@ const ColorSwatchGrid = () => {
   };
 
   const displayedColors = showAllColors ? allColors : initialColors;
+  const isLoading = showAllColors ? loadingMore : loading;
 
   return (
     <div className={styles.container}>
@@ -40,18 +43,25 @@ const ColorSwatchGrid = () => {
         onLightnessChange={handleInputChange(setLightness)}
       />
 
-      {loading && <LoadingIndicator />}
+      {isLoading && <LoadingIndicator />}
       
       {error && <p className={`${styles.message} ${styles.error}`}>{error}</p>}
       
       <div className={styles.swatchGridContainer}>
         <div className={styles.swatchGrid}>
-          {displayedColors.map((transition) => (
-            <ColorSwatch key={`${transition.hue}-${transition.color.hex.value}`} color={transition.color} loading={loading} />
-          ))}
+          {isLoading
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <SkeletonSwatch key={index} />
+              ))
+            : displayedColors.map((transition) => (
+                <ColorSwatch 
+                  key={`${transition.hue}-${transition.color.hex.value}`} 
+                  color={transition.color} 
+                />
+              ))}
         </div>
         
-        {initialColors.length > 0 && allColors.length > initialColors.length && (
+        {initialColors.length > 0 && !isLoading && (
           <button 
             className={styles.toggleButton} 
             onClick={toggleColorDisplay}

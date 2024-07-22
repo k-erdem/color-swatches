@@ -179,3 +179,34 @@
 .toggleButton:hover {
   background-color: #e0e0e0;
 }
+
+.skeletonSwatch {
+  background-color: #f0f0f0;
+  animation: pulse 1.5s infinite;
+}
+
+.skeletonContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.skeletonLine {
+  height: 10px;
+  margin: 5px 10px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
