@@ -21,17 +21,14 @@ To run this project locally, follow the steps below.
     cd color-swatches
     cd src
     ```
-    
 3. Install Node.js
 
-https://nodejs.org/en/download/package-manager
+ Just go on [official Node.js website](https://nodejs.org/) and download the installer.
 
 4. Install dependencies in the project directory. Install the required dependencies by running:
-
     ```
     npm install
     ```
-
 This command will install all the dependencies listed in the package.json file, including React and other necessary packages.
 
 5. Start the development server
@@ -53,6 +50,14 @@ When you're done, you can stop the development server by pressing Ctrl + C in th
 
 ## Considerations & Design Choices
 
+The design choices in this project were informed by the necessities to optimize the API calls. With possible values of 360 for Hue, 100 for Saturation, and 100 for Lightness, the Color API calls had to be optimized to provide a high performing application with a smooth user experience. 
+
+The website is made up of 2 distinct parts. The user input control tools (sliders for Saturation and Lightness) and the Color Swatch grid, displaying all distinct colors for the given S,L values. Users can interact with the website by changing the saturation and lightness values. The best user experience for selecting these values was ensured through giving the users the options to either manually type a value for the variables (so they can look up specific outcomes they're curious about), or use the slider to experiment with different values of S,L variables. Debouncing was used to limit excessive API requests, and to make sure the user gets a fast response without having to see twitching color swatches. A loading indicator in the form of a message text and a cute theme-relevant was used to prompt the users and provide the necessary feedback. 
+
+Distinct swatch names were determined by 
+
+Edge cases including but not limited to S=0, L=0, L=100 were tested, and relevant responses were crafted.
+
 - How efficiently can the distinct names be determined? Can the number of API calls be reduced?*
 - Do all colors need to be rendered at once?
 - When will the API calls be made?
@@ -64,7 +69,6 @@ When you're done, you can stop the development server by pressing Ctrl + C in th
 ## File Structure
 
 
--- Edge case when S or L is 100 or 0.
 -- I also maybe need to erase localstorage every time we close the program.
 
 ** I used custom hooks to make the code more readable (ie. useColorFetching and useDebounce)
