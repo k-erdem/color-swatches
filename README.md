@@ -1,7 +1,7 @@
 # Color Swatches - Akkio Frontend Technical Assessment
 
 ## Overview 
-An example project that uses the [color api][https://www.thecolorapi.com/] to build a grid of Hue, Saturation, Lightness (HSL) color swatches by taking user inputs for Saturation (S) and Lightness (L).
+An example project that uses the [color api](https://www.thecolorapi.com/) to build a grid of Hue, Saturation, Lightness (HSL) color swatches by taking user inputs for Saturation (S) and Lightness (L).
 
 ## Demo
 
